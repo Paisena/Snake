@@ -70,15 +70,23 @@ public class App extends JFrame implements ActionListener, KeyListener {
         switch (e.getKeyCode()) {
             case 65:
                 System.out.print("a");
+                snakeUnit.x -= 10;
+                repaint();
                 break;
             case 68:
                 System.out.print("d");
+                snakeUnit.x += 10;
+                repaint();
                 break;
             case 83:
                 System.out.print("s");
+                snakeUnit.y += 10;
+                repaint();
                 break;
             case 87:
                 System.out.print("w");
+                snakeUnit.y -= 10;
+                repaint();
                 break;
             case 32:
                 if(!OnorOff){
@@ -89,29 +97,34 @@ public class App extends JFrame implements ActionListener, KeyListener {
                 }
             default:
                 System.out.print(e.getKeyCode());
+                repaint();
                 break;
         }
+        repaint();
     }
 
     public void keyReleased(KeyEvent e) {
-
+        repaint();
     }
 
     public void keyTyped(KeyEvent e) {
+        repaint();
     }
 
     // create the paint method to show graphics
     public void paint(Graphics g) {
-
         super.paint(g);
+
         g.setColor(Color.red);
         g.fillOval(snakeUnit.x, snakeUnit.y, 10, 10);
+
     }
 
     public void Update(Graphics gr) {
 
         // call the paint method
         paint(gr);
+        repaint();
     }
 
     public void startTheTimer() {
