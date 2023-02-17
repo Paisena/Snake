@@ -12,12 +12,13 @@ import java.awt.event.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 public class App extends JFrame implements ActionListener, KeyListener {
 
     Timer myTimer = new Timer(100, this);
 
-    boolean OnorOff = false;
+    boolean OnorOff = true;
+
+    Apple apple = new Apple();
 
     SnakeUnit snakeUnit = new SnakeUnit(200, 100);
 
@@ -35,10 +36,10 @@ public class App extends JFrame implements ActionListener, KeyListener {
 
         addKeyListener(this);
 
-        //this is a very cool test
 
+        // this is a very cool test
+        myTimer.start();
         repaint();
-
 
 
     }
@@ -46,10 +47,10 @@ public class App extends JFrame implements ActionListener, KeyListener {
     public static void main(String[] args) {
 
         // Place components on the applet panel
-        final int FRAME_WIDTH = 500;
-        final int FRAME_HEIGHT = 500;
+        final int FRAME_WIDTH = 620;
+        final int FRAME_HEIGHT = 620;
 
-        //this is a edit
+        // this is a edit
         App frame = new App();
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setVisible(true);
@@ -58,45 +59,43 @@ public class App extends JFrame implements ActionListener, KeyListener {
 
     // when you push the button it comes this method
     public void actionPerformed(ActionEvent event) {
-
+        if(!apple.isSpawned){
+            apple.spawn();
+        }
         // declare variable to hold which button is called
         Object objSource = event.getSource();
-        // requestFocus();
+        if(OnorOff){
+            snakeUnit.move();
 
+            if(snakeUnit.isOverApple(apple.x, apple.y)){
+                apple.spawn();
+                snakeUnit.grow();
+            }
+        }
+        // requestFocus();
         repaint();
     }
 
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case 65:
-                System.out.print("a");
-                snakeUnit.x -= 10;
+                snakeUnit.changeXDir(-5);
                 repaint();
                 break;
             case 68:
-                System.out.print("d");
-                snakeUnit.x += 10;
+                snakeUnit.changeXDir(5);
                 repaint();
                 break;
             case 83:
-                System.out.print("s");
-                snakeUnit.y += 10;
+                snakeUnit.changeYDir(5);
                 repaint();
                 break;
             case 87:
-                System.out.print("w");
-                snakeUnit.y -= 10;
+                snakeUnit.changeYDir(-5);
                 repaint();
                 break;
-            case 32:
-                if(!OnorOff){
-                    startTheTimer();
-                }
-                if(OnorOff){
-                    stopTheTimer();
-                }
             default:
-                System.out.print(e.getKeyCode());
+                System.out.print("key code: " + e.getKeyCode());
                 repaint();
                 break;
         }
@@ -116,7 +115,10 @@ public class App extends JFrame implements ActionListener, KeyListener {
         super.paint(g);
 
         g.setColor(Color.red);
-        g.fillOval(snakeUnit.x, snakeUnit.y, 10, 10);
+        g.fillRect(snakeUnit.x, snakeUnit.y, 20, 20);
+
+        if(apple.isSpawned)
+        g.fillRect(apple.x, apple.y, 20, 20);
 
     }
 
@@ -129,7 +131,7 @@ public class App extends JFrame implements ActionListener, KeyListener {
 
     public void startTheTimer() {
 
-        //thasdas
+        System.out.println("timer started");
         myTimer.start();
         OnorOff = true;
     }
