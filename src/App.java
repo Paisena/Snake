@@ -129,6 +129,7 @@ public class App extends JFrame implements ActionListener, KeyListener {
 
     public void startTheTimer() {
 
+        //thasdas
         myTimer.start();
         OnorOff = true;
     }
