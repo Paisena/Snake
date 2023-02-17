@@ -19,7 +19,7 @@ public class App extends JFrame implements ActionListener, KeyListener {
 
     boolean OnorOff = false;
 
-    SnakeUnit snakeUnit = new SnakeUnit(100, 100);
+    SnakeUnit snakeUnit = new SnakeUnit(200, 100);
 
     // DefineObject Circles[]= new DefineObject[50];
 
