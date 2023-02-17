@@ -35,7 +35,7 @@ public class App extends JFrame implements ActionListener, KeyListener {
 
         addKeyListener(this);
 
-        //thsa
+        //this is a very cool test
 
         repaint();
 
