@@ -3,9 +3,9 @@ public class SnakeUnit {
 
     int x;
     int y;
-    int xDir = 5;
-    int yDir;
-    int size = 1;
+    static int xDir = 20;
+    static int yDir = 0;
+    static int size = 1;
 
     SnakeUnit(int xPos,int yPos){
         x = xPos;
@@ -17,12 +17,12 @@ public class SnakeUnit {
         y += yDir;
     }
 
-    public void changeXDir(int Vel){
+    public static void changeXDir(int Vel){
         xDir = Vel;
         yDir = 0;
     }
 
-    public void changeYDir(int Vel){
+    public static void changeYDir(int Vel){
         yDir = Vel;
         xDir = 0;
     }
@@ -36,5 +36,13 @@ public class SnakeUnit {
 
     public void grow(){
 
+    }
+
+    public int getXDir(){
+        return xDir;
+    }
+
+    public int getYDir(){
+        return yDir;
     }
 }

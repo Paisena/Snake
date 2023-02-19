@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class App extends JFrame implements ActionListener, KeyListener {
@@ -20,7 +21,9 @@ public class App extends JFrame implements ActionListener, KeyListener {
 
     Apple apple = new Apple();
 
-    SnakeUnit snakeUnit = new SnakeUnit(200, 100);
+    //SnakeUnit snakeUnit = new SnakeUnit(200, 100);
+
+    ArrayList<SnakeUnit> snakeUnitArray = new ArrayList<SnakeUnit>();
 
     // DefineObject Circles[]= new DefineObject[50];
 
@@ -30,6 +33,8 @@ public class App extends JFrame implements ActionListener, KeyListener {
     public App() {
 
         super("Button Test");
+        snakeUnitArray.add(new SnakeUnit(200, 200));
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout());
         // pnlInput.setLayout(new GridLayout(0,2));
@@ -45,6 +50,7 @@ public class App extends JFrame implements ActionListener, KeyListener {
     }
 
     public static void main(String[] args) {
+
 
         // Place components on the applet panel
         final int FRAME_WIDTH = 620;
@@ -65,11 +71,13 @@ public class App extends JFrame implements ActionListener, KeyListener {
         // declare variable to hold which button is called
         Object objSource = event.getSource();
         if(OnorOff){
-            snakeUnit.move();
 
-            if(snakeUnit.isOverApple(apple.x, apple.y)){
+            createNewSnake();
+            removeBackSnake();
+
+            if(snakeUnitArray.get(snakeUnitArray.size() - 1).isOverApple(apple.x, apple.y)){
                 apple.spawn();
-                snakeUnit.grow();
+                //snakeUnit.grow();
             }
         }
         // requestFocus();
@@ -79,19 +87,19 @@ public class App extends JFrame implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case 65:
-                snakeUnit.changeXDir(-5);
+                SnakeUnit.changeXDir(-20);
                 repaint();
                 break;
             case 68:
-                snakeUnit.changeXDir(5);
+                SnakeUnit.changeXDir(20);
                 repaint();
                 break;
             case 83:
-                snakeUnit.changeYDir(5);
+                SnakeUnit.changeYDir(20);
                 repaint();
                 break;
             case 87:
-                snakeUnit.changeYDir(-5);
+                SnakeUnit.changeYDir(-20);
                 repaint();
                 break;
             default:
@@ -115,8 +123,9 @@ public class App extends JFrame implements ActionListener, KeyListener {
         super.paint(g);
 
         g.setColor(Color.red);
-        g.fillRect(snakeUnit.x, snakeUnit.y, 20, 20);
-
+        for(int i = 0; i < snakeUnitArray.size(); i++){
+            g.fillRect(snakeUnitArray.get(i).x, snakeUnitArray.get(i).y, 20, 20);
+        }
         if(apple.isSpawned)
         g.fillRect(apple.x, apple.y, 20, 20);
 
@@ -142,4 +151,11 @@ public class App extends JFrame implements ActionListener, KeyListener {
         OnorOff = false;
     }
 
+    public void createNewSnake(){
+        snakeUnitArray.add(new SnakeUnit(snakeUnitArray.get(snakeUnitArray.size()-1).x + snakeUnitArray.get(snakeUnitArray.size()-1).getXDir(), snakeUnitArray.get(snakeUnitArray.size()-1).y + snakeUnitArray.get(snakeUnitArray.size()-1).getYDir()));
+    }
+
+    public void removeBackSnake(){
+        snakeUnitArray.remove(0);
+    }
 }

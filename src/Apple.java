@@ -8,11 +8,11 @@ public class Apple {
     Random random = new Random();
 
     public void spawn(){
-        int randX = random.nextInt(0, 120);
-        int randY = random.nextInt(0, 120);
+        int randX = random.nextInt(0, 30);
+        int randY = random.nextInt(1, 30);
 
-        randX *= 5;
-        randY *= 5;
+        randX *= 20;
+        randY *= 20;
 
         x = randX;
         y = randY;
