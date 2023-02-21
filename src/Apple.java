@@ -1,6 +1,9 @@
 import java.util.Random;
 
+//The class which for the apple that will be spawned
+
 public class Apple {
+
     int x;
     int y;
     boolean isSpawned = false;
